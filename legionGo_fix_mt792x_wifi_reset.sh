@@ -41,11 +41,13 @@ echo "[+] Detected: $wifi_chip"
 
 CURRENT_STEP="Checking current backend"
 echo "[*] Checking current NetworkManager backend..."
-iwd_active=$(systemctl is-active iwd)
-wpa_active=$(systemctl is-active wpa_supplicant)
+iwd_active=$(systemctl is-active iwd 2>/dev/null || echo "inactive")
+wpa_active=$(systemctl is-active wpa_supplicant 2>/dev/null || echo "inactive")
 
 echo "[i] iwd status: $iwd_active"
 echo "[i] wpa_supplicant status: $wpa_active"
+
+
 
 CURRENT_STEP="Disabling ASPM"
 echo "[*] Disabling ASPM (PCIe Power saving)..."
